@@ -1,5 +1,8 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.screen.Screen;
 
 public class Arena {
     private final int width;
@@ -42,7 +45,12 @@ public class Arena {
         }
     }
 
-    public void draw(Screen screen) {
-        hero.draw(screen);
+    public void draw(TextGraphics graphics) {
+        // Pintar o chão da Arena
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+
+        // Desenhar o Herói por cima
+        hero.draw(graphics);
     }
 }
