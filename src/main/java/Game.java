@@ -19,17 +19,21 @@ public class Game {
         Terminal terminal = terminalFactory.createTerminal();
 
         this.screen = new TerminalScreen(terminal);
-        this.screen.setCursorPosition(null);   // Ocultar o cursor
-        this.screen.startScreen();             // Iniciar o ecrã
-        this.screen.doResizeIfNecessary();     // Redimensionar se necessário
+        this.screen.setCursorPosition(null);
+        this.screen.startScreen();
+        this.screen.doResizeIfNecessary();
 
-        this.hero = new Hero(10, 10);          // Inicializar o Hero
+        this.hero = new Hero(10, 10);
     }
 
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);                    // O próprio Hero desenha-se no ecrã
+        hero.draw(screen);
         screen.refresh();
+    }
+
+    private void moveHero(Position position) {
+        hero.setPosition(position);
     }
 
     private void processKey(KeyStroke key) throws IOException {
@@ -41,16 +45,16 @@ public class Game {
 
         switch (key.getKeyType()) {
             case ArrowUp:
-                hero.moveUp();
+                moveHero(hero.moveUp());
                 break;
             case ArrowDown:
-                hero.moveDown();
+                moveHero(hero.moveDown());
                 break;
             case ArrowLeft:
-                hero.moveLeft();
+                moveHero(hero.moveLeft());
                 break;
             case ArrowRight:
-                hero.moveRight();
+                moveHero(hero.moveRight());
                 break;
             default:
                 break;
