@@ -1,5 +1,4 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -11,8 +10,7 @@ import java.io.IOException;
 
 public class Game {
     private final Screen screen;
-    private int x = 10;
-    private int y = 10;
+    private final Hero hero;
 
     public Game() throws IOException {
         TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -24,11 +22,13 @@ public class Game {
         this.screen.setCursorPosition(null);   // Ocultar o cursor
         this.screen.startScreen();             // Iniciar o ecrã
         this.screen.doResizeIfNecessary();     // Redimensionar se necessário
+
+        this.hero = new Hero(10, 10);          // Inicializar o Hero
     }
 
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        hero.draw(screen);                    // O próprio Hero desenha-se no ecrã
         screen.refresh();
     }
 
@@ -41,16 +41,16 @@ public class Game {
 
         switch (key.getKeyType()) {
             case ArrowUp:
-                y--;
+                hero.moveUp();
                 break;
             case ArrowDown:
-                y++;
+                hero.moveDown();
                 break;
             case ArrowLeft:
-                x--;
+                hero.moveLeft();
                 break;
             case ArrowRight:
-                x++;
+                hero.moveRight();
                 break;
             default:
                 break;

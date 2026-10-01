@@ -1,3 +1,6 @@
+import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.screen.Screen;
+
 public class Hero {
     private int x;
     private int y;
@@ -24,22 +27,24 @@ public class Hero {
     }
 
     public void moveUp() {
-        y--;
+        this.y--;
     }
 
     public void moveDown() {
-        y++;
+        this.y++;
     }
 
     public void moveLeft() {
-        x--;
+        this.x--;
     }
 
     public void moveRight() {
-        x++;
+        this.x++;
     }
 
-    
+    public void draw(Screen screen) {
+        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+    }
 }
 
 
